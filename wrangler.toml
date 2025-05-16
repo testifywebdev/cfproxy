@@ -1,0 +1,7 @@
+name = "cfproxy"
+type = "javascript"
+compatibility_date = "2025-05-16"
+main = "index.js"
+
+# If you want Cloudflare to auto‑route your custom domain:
+routes = ["*.lesthost.dpdns.org/*"]
