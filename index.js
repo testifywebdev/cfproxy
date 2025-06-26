@@ -28,8 +28,22 @@ export default {
 async function handleCDNRequest(request, url) {
   let targetUrl
   
-  // Determine file type based on extension
-  const fileExtension = url.pathname.split('.').pop().toLowerCase()
+  // Determine file type based on extension (remove query params first)
+  const pathWithoutQuery = url.pathname
+  const fileExtension = pathWithoutQuery.split('.').pop().toLowerCase()
+  
+async function handleCDNRequest(request, url) {
+  let targetUrl
+  
+  // Determine file type based on extension (remove query params first)
+  const pathWithoutQuery = url.pathname
+  const fileExtension = pathWithoutQuery.split('.').pop().toLowerCase()
+  
+  console.log('Processing CDN request:', {
+    pathname: url.pathname,
+    search: url.search,
+    fileExtension: fileExtension
+  })
   
   // Handle video files
   if (['mp4', 'webm', 'avi', 'mov', 'mkv', 'flv', 'm4v'].includes(fileExtension)) {
@@ -60,6 +74,8 @@ async function handleCDNRequest(request, url) {
     // Fallback for unknown file types
     targetUrl = `https://fhymsbxuaexnnakojxzk.supabase.co/storage/v1/object/public/cdn${url.pathname}${url.search || ''}`
   }
+
+  console.log('Target URL:', targetUrl)
 
   try {
     // Create the proxy request
