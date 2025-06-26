@@ -1,4 +1,3 @@
-
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url)
@@ -10,7 +9,8 @@ export default {
     }
 
     // Original proxy logic for non-CDN requests
-    const proxyUrl = `${process.env.BASE_URI}${url.pathname}`
+    const baseUri = env.BASE_URI
+    const proxyUrl = `${baseUri}${url.pathname}`
     
     const modifiedRequest = new Request(proxyUrl, {
       method: request.method,
@@ -25,13 +25,6 @@ export default {
   }
 }
 
-async function handleCDNRequest(request, url) {
-  let targetUrl
-  
-  // Determine file type based on extension (remove query params first)
-  const pathWithoutQuery = url.pathname
-  const fileExtension = pathWithoutQuery.split('.').pop().toLowerCase()
-  
 async function handleCDNRequest(request, url) {
   let targetUrl
   
