@@ -10,4 +10,5 @@ routes = ["*.letshost.dpdns.org/*"]
 enabled = true
 
 
-
+[vars]
+BASE_URI = "https://reverse-proxy-server-o4li.onrender.com"
